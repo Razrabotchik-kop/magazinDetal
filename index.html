@@ -3,13 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>✨ МАГАЗИН - Заказ товаров ✨</title>
+    <title>🏪 МЕГА МАРКЕТ - Каталог товаров</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -18,270 +14,172 @@
             padding: 20px;
         }
         
-        .container {
-            max-width: 1300px;
-            margin: 0 auto;
-        }
+        .container { max-width: 1400px; margin: 0 auto; }
         
-        /* Шапка */
         .header {
             text-align: center;
             color: white;
-            margin-bottom: 40px;
-            animation: fadeIn 1s ease;
+            margin-bottom: 30px;
         }
         
-        .header h1 {
-            font-size: 48px;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
-        }
+        .header h1 { font-size: 48px; margin-bottom: 10px; text-shadow: 2px 2px 4px rgba(0,0,0,0.2); }
+        .header p { font-size: 18px; opacity: 0.95; }
         
-        .header p {
-            font-size: 18px;
-            opacity: 0.95;
-        }
-        
-        /* Поиск */
-        .search-section {
-            margin-bottom: 40px;
-        }
-        
-        .search-box {
-            max-width: 500px;
-            margin: 0 auto;
-            position: relative;
-        }
-        
+        .search-section { margin-bottom: 30px; }
         .search-input {
             width: 100%;
-            padding: 16px 20px 16px 50px;
+            max-width: 500px;
+            margin: 0 auto;
+            display: block;
+            padding: 15px 20px;
             font-size: 16px;
             border: none;
             border-radius: 50px;
-            background: white;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            transition: all 0.3s;
         }
         
-        .search-input:focus {
-            outline: none;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
-            transform: scale(1.02);
-        }
-        
-        .search-icon {
-            position: absolute;
-            left: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 20px;
-        }
-        
-        /* Сетка товаров */
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 30px;
-            margin-bottom: 50px;
-        }
-        
-        /* Карточка товара */
-        .product-card {
+        .categories-nav {
             background: white;
             border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
+            padding: 15px;
+            margin-bottom: 30px;
+            overflow-x: auto;
+            white-space: nowrap;
         }
         
-        .product-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 25px 50px rgba(0,0,0,0.25);
-        }
-        
-        .product-badge {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: bold;
-            z-index: 10;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        
-        .badge-new {
-            background: linear-gradient(135deg, #FF6B6B, #EE5A24);
-            color: white;
-            animation: pulse 1.5s infinite;
-        }
-        
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-        
-        .product-image {
-            height: 200px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 70px;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .product-image::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
-            opacity: 0;
-            transition: opacity 0.5s;
-        }
-        
-        .product-card:hover .product-image::before {
-            opacity: 1;
-        }
-        
-        .product-info {
-            padding: 25px;
-        }
-        
-        .product-name {
-            font-size: 20px;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 5px;
-        }
-        
-        .product-code {
-            font-size: 11px;
-            color: #aaa;
-            margin-bottom: 15px;
-            font-family: monospace;
-        }
-        
-        .product-price {
-            font-size: 28px;
-            font-weight: bold;
-            color: #FF6B6B;
-            margin: 15px 0;
-        }
-        
-        .product-price small {
-            font-size: 14px;
-            color: #999;
-            font-weight: normal;
-        }
-        
-        .stock-info {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-        
-        .stock-badge {
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: bold;
-        }
-        
-        .stock-high {
-            background: #d4edda;
-            color: #155724;
-        }
-        
-        .stock-medium {
-            background: #fff3cd;
-            color: #856404;
-        }
-        
-        .stock-low {
-            background: #f8d7da;
-            color: #721c24;
-        }
-        
-        .progress-bar {
-            flex: 1;
-            height: 6px;
-            background: #e0e0e0;
-            border-radius: 3px;
-            overflow: hidden;
-        }
-        
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #4CAF50, #8BC34A);
-            border-radius: 3px;
-            transition: width 0.5s;
-        }
-        
-        .order-btn {
-            width: 100%;
-            padding: 14px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+        .category-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 0 5px;
+            background: #f0f0f0;
             border: none;
-            border-radius: 12px;
-            font-size: 16px;
-            font-weight: bold;
+            border-radius: 30px;
             cursor: pointer;
             transition: all 0.3s;
         }
         
-        .order-btn:hover:not(:disabled) {
-            transform: scale(1.02);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        .category-btn:hover, .category-btn.active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            transform: translateY(-2px);
         }
         
-        .order-btn:disabled {
-            background: #ccc;
-            cursor: not-allowed;
+        .subcategories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
         }
         
-        /* Контактная карточка */
-        .contact-card {
-            background: rgba(255,255,255,0.95);
-            border-radius: 25px;
-            padding: 40px;
-            margin: 40px 0;
+        .subcategory-card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
             text-align: center;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
         
-        .contact-card h3 {
-            font-size: 28px;
-            color: #333;
+        .subcategory-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+        
+        .subcategory-icon { font-size: 48px; margin-bottom: 10px; }
+        .subcategory-name { font-size: 18px; font-weight: bold; margin-bottom: 10px; }
+        .subcategory-count { color: #666; font-size: 13px; }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .product-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.3s;
+            position: relative;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        .product-card:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0,0,0,0.2); }
+        
+        .product-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: bold;
+            background: #FF6B6B;
+            color: white;
+        }
+        
+        .product-image {
+            height: 160px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 55px;
+        }
+        
+        .product-info { padding: 20px; }
+        .product-name { font-size: 16px; font-weight: bold; color: #333; margin-bottom: 5px; }
+        .product-code { font-size: 10px; color: #aaa; margin-bottom: 10px; }
+        .product-price { font-size: 22px; font-weight: bold; color: #FF6B6B; margin: 10px 0; }
+        
+        .product-stock {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
             margin-bottom: 15px;
         }
         
-        .contact-email {
-            font-size: 24px;
+        .stock-high { background: #d4edda; color: #155724; }
+        .stock-low { background: #fff3cd; color: #856404; }
+        .stock-out { background: #f8d7da; color: #721c24; }
+        
+        .order-btn {
+            width: 100%;
+            padding: 12px;
             background: linear-gradient(135deg, #667eea, #764ba2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin: 20px 0;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: bold;
         }
         
-        .contact-email a {
-            text-decoration: none;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .order-btn:hover:not(:disabled) { transform: scale(1.02); }
+        .order-btn:disabled { background: #ccc; cursor: not-allowed; }
+        
+        .back-btn {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            margin-bottom: 20px;
         }
         
-        /* Модальное окно */
+        .contact-card {
+            background: rgba(255,255,255,0.95);
+            border-radius: 25px;
+            padding: 30px;
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        .contact-email { font-size: 20px; margin: 15px 0; }
+        
         .modal {
             display: none;
             position: fixed;
@@ -290,7 +188,6 @@
             width: 100%;
             height: 100%;
             background: rgba(0,0,0,0.6);
-            backdrop-filter: blur(5px);
             justify-content: center;
             align-items: center;
             z-index: 1000;
@@ -298,91 +195,45 @@
         
         .modal-content {
             background: white;
-            padding: 35px;
+            padding: 30px;
             border-radius: 25px;
-            max-width: 550px;
+            max-width: 500px;
             width: 90%;
             max-height: 85vh;
             overflow-y: auto;
-            animation: slideUp 0.4s ease;
         }
         
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        .modal-content h3 {
-            font-size: 28px;
-            margin-bottom: 25px;
-            color: #333;
-        }
-        
-        .form-group {
-            margin-bottom: 20px;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            color: #555;
-            font-weight: 500;
-        }
-        
-        .form-group input,
-        .form-group textarea {
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: 500; }
+        .form-group input, .form-group textarea {
             width: 100%;
-            padding: 12px 15px;
+            padding: 10px;
             border: 2px solid #e0e0e0;
-            border-radius: 12px;
-            font-size: 14px;
-            transition: all 0.3s;
-        }
-        
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            border-radius: 10px;
         }
         
         .btn-submit {
             width: 100%;
-            padding: 14px;
-            background: linear-gradient(135deg, #4CAF50, #45a049);
+            padding: 12px;
+            background: #4CAF50;
             color: white;
             border: none;
-            border-radius: 12px;
-            font-size: 16px;
-            font-weight: bold;
+            border-radius: 10px;
             cursor: pointer;
-            margin-top: 10px;
+            font-weight: bold;
         }
         
         .btn-cancel {
             width: 100%;
-            padding: 12px;
+            padding: 10px;
             background: #f0f0f0;
-            color: #666;
             border: none;
-            border-radius: 12px;
-            font-size: 14px;
+            border-radius: 10px;
             cursor: pointer;
             margin-top: 10px;
         }
         
-        .footer {
-            text-align: center;
-            color: white;
-            padding: 30px;
-            opacity: 0.9;
-        }
+        .footer { text-align: center; color: white; padding: 30px; opacity: 0.9; }
         
         .toast {
             position: fixed;
@@ -391,17 +242,16 @@
             transform: translateX(-50%);
             background: #333;
             color: white;
-            padding: 15px 30px;
-            border-radius: 50px;
+            padding: 12px 24px;
+            border-radius: 30px;
             z-index: 2000;
-            animation: slideIn 0.3s ease;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            animation: fadeInUp 0.3s ease;
         }
         
-        @keyframes slideIn {
+        @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateX(-50%) translateY(50px);
+                transform: translateX(-50%) translateY(20px);
             }
             to {
                 opacity: 1;
@@ -409,378 +259,424 @@
             }
         }
         
-        .loading {
-            text-align: center;
-            padding: 80px;
+        .breadcrumb {
+            background: rgba(255,255,255,0.2);
+            padding: 12px 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
             color: white;
-            font-size: 20px;
         }
         
-        .empty {
-            text-align: center;
-            padding: 80px;
-            background: white;
-            border-radius: 25px;
-            color: #999;
-        }
+        .breadcrumb span { cursor: pointer; text-decoration: underline; }
         
         @media (max-width: 768px) {
             .header h1 { font-size: 32px; }
-            .product-image { height: 150px; font-size: 50px; }
-            .contact-email { font-size: 18px; }
+            .products-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>✨ МАГАЗИН ТОВАРОВ ✨</h1>
-            <p>Лучшие товары по лучшим ценам</p>
+            <h1>🏪 МЕГА МАРКЕТ</h1>
+            <p>Всё для дома, работы и развлечений</p>
         </div>
         
         <div class="search-section">
-            <div class="search-box">
-                <span class="search-icon">🔍</span>
-                <input type="text" id="searchInput" class="search-input" placeholder="Поиск товаров...">
-            </div>
+            <input type="text" id="searchInput" class="search-input" placeholder="🔍 Поиск товаров...">
         </div>
         
-        <div id="productsGrid" class="products-grid">
-            <div class="loading">🔄 Загрузка товаров...</div>
-        </div>
+        <div id="breadcrumb" class="breadcrumb"></div>
+        <div id="categoriesNav" class="categories-nav"></div>
+        <div id="subcategoriesGrid" class="subcategories-grid"></div>
+        <div id="productsGrid" class="products-grid"></div>
         
         <div class="contact-card">
-            <h3>📧 Есть вопросы или предложения?</h3>
-            <p>Напишите нам напрямую</p>
-            <div class="contact-email">
-                📧 <a href="mailto:zakaz@yourstore.com">zakaz@yourstore.com</a>
-            </div>
-            <p style="margin-top: 20px; font-size: 14px; color: #888;">
-                Или заполните форму заказа ниже
-            </p>
+            <h3>📧 Есть вопросы?</h3>
+            <div class="contact-email">📧 <a href="mailto:shop@megamarket.com">shop@megamarket.com</a></div>
+            <p>Заполните форму заказа - мы свяжемся с вами!</p>
         </div>
         
         <div class="footer">
-            <p>© 2024 Магазин. Все права защищены.</p>
-            <p style="font-size: 12px;">Сайт создан для удобного заказа товаров</p>
+            <p>© 2024 МЕГА МАРКЕТ. Все права защищены.</p>
         </div>
     </div>
     
-    <!-- Модальное окно заказа -->
     <div id="orderModal" class="modal">
         <div class="modal-content">
             <h3>🛍️ Оформление заказа</h3>
-            <div id="selectedProductInfo" style="background:#f8f9fa; padding:15px; border-radius:15px; margin-bottom:25px;"></div>
-            
+            <div id="selectedProductInfo" style="background:#f5f5f5; padding:15px; border-radius:15px; margin-bottom:20px;"></div>
             <form id="orderForm" method="POST" action="https://formspree.io/f/ВАШ_КЛЮЧ_ФОРМЫ">
-                <div class="form-group">
-                    <label>👤 Ваше имя *</label>
-                    <input type="text" name="name" id="orderName" required placeholder="Иван Иванов">
-                </div>
-                
-                <div class="form-group">
-                    <label>📧 Email *</label>
-                    <input type="email" name="email" id="orderEmail" required placeholder="ivan@example.com">
-                </div>
-                
-                <div class="form-group">
-                    <label>📞 Телефон *</label>
-                    <input type="tel" name="phone" id="orderPhone" required placeholder="+7 999 123-45-67">
-                </div>
-                
-                <div class="form-group">
-                    <label>🔢 Количество *</label>
-                    <input type="number" name="quantity" id="orderQty" min="1" value="1" required>
-                </div>
-                
-                <div class="form-group">
-                    <label>📍 Адрес доставки</label>
-                    <textarea name="address" id="orderAddress" rows="2" placeholder="Город, улица, дом, квартира"></textarea>
-                </div>
-                
-                <div class="form-group">
-                    <label>💬 Комментарий</label>
-                    <textarea name="comment" id="orderComment" rows="2" placeholder="Ваши пожелания к заказу"></textarea>
-                </div>
-                
-                <!-- Скрытые поля -->
-                <input type="hidden" name="product" id="orderProduct" value="">
-                <input type="hidden" name="_subject" id="orderSubject" value="Новый заказ с сайта">
-                <input type="hidden" name="_replyto" id="orderReplyto">
+                <div class="form-group"><label>Имя *</label><input type="text" name="name" id="orderName" required></div>
+                <div class="form-group"><label>Email *</label><input type="email" name="email" id="orderEmail" required></div>
+                <div class="form-group"><label>Телефон *</label><input type="tel" name="phone" id="orderPhone" required></div>
+                <div class="form-group"><label>Количество</label><input type="number" name="quantity" id="orderQty" min="1" value="1"></div>
+                <div class="form-group"><label>Адрес</label><textarea name="address" id="orderAddress" rows="2"></textarea></div>
+                <input type="hidden" name="product" id="orderProduct">
                 <input type="text" name="_gotcha" style="display:none">
-                
-                <button type="submit" class="btn-submit">✅ Оформить заказ</button>
-                <button type="button" class="btn-cancel" onclick="closeModal()">❌ Отмена</button>
+                <button type="submit" class="btn-submit">✅ Оформить</button>
+                <button type="button" class="btn-cancel" onclick="closeModal()">Отмена</button>
             </form>
         </div>
     </div>
     
     <script>
         // ============================================================
-        // ⭐⭐⭐ НАСТРОЙКИ ТОВАРОВ - РЕДАКТИРУЙ ЗДЕСЬ ⭐⭐⭐
-        // ============================================================
-        // 
-        // ИНСТРУКЦИЯ ПО ДОБАВЛЕНИЮ НОВЫХ ТОВАРОВ:
-        // 
-        // 1. Скопируй блок в фигурных скобках { ... },
-        // 2. Вставь его в массив products через запятую
-        // 3. Заполни поля:
-        //    - id:        номер товара (последующий)
-        //    - code:      штрихкод (любой уникальный номер)
-        //    - name:      название товара
-        //    - price:     цена в рублях
-        //    - quantity:  количество на складе
-        //    - min_quantity: минимальный остаток (при котором будет предупреждение)
-        //    - unit:      единица измерения (шт, кг, м и т.д.)
-        //    - isNew:     true - появится метка "NEW", false - без метки
-        //
+        // ⭐⭐⭐ ПОЛНЫЙ КАТАЛОГ - МНОГО ТОВАРОВ В КАЖДОЙ ПОДКАТЕГОРИИ ⭐⭐⭐
         // ============================================================
         
-        const PRODUCTS_DATA = {
-            "products": [
-                // ↓↓↓ КОПИРУЙ ЭТОТ БЛОК ДЛЯ ДОБАВЛЕНИЯ НОВОГО ТОВАРА ↓↓↓
-                {
-                    "id": 1,
-                    "code": "4601234567890",
-                    "name": "✨ Смартфон Galaxy S21",
-                    "price": 29990,
-                    "quantity": 15,
-                    "min_quantity": 3,
-                    "unit": "шт",
-                    "isNew": true
-                },
-                // ↑↑↑ КОНЕЦ БЛОКА ТОВАРА ↑↑↑
-                
-                {
-                    "id": 2,
-                    "code": "4601234567891",
-                    "name": "🎧 Наушники Bluetooth Pro",
-                    "price": 2990,
-                    "quantity": 30,
-                    "min_quantity": 5,
-                    "unit": "шт",
-                    "isNew": false
-                },
-                {
-                    "id": 3,
-                    "code": "4601234567892",
-                    "name": "🔋 Зарядное устройство 65W",
-                    "price": 990,
-                    "quantity": 50,
-                    "min_quantity": 10,
-                    "unit": "шт",
-                    "isNew": false
-                },
-                {
-                    "id": 4,
-                    "code": "4601234567893",
-                    "name": "📱 Защитный чехол",
-                    "price": 590,
-                    "quantity": 25,
-                    "min_quantity": 5,
-                    "unit": "шт",
-                    "isNew": true
-                },
-                {
-                    "id": 5,
-                    "code": "4601234567894",
-                    "name": "🔍 Защитное стекло 3D",
-                    "price": 390,
-                    "quantity": 0,
-                    "min_quantity": 10,
-                    "unit": "шт",
-                    "isNew": false
-                },
-                {
-                    "id": 6,
-                    "code": "4601234567895",
-                    "name": "🔊 Портативная колонка",
-                    "price": 4990,
-                    "quantity": 2,
-                    "min_quantity": 3,
-                    "unit": "шт",
-                    "isNew": false
-                },
-                  {
-                    "id": 1,
-                    "code": "4601234567890",
-                    "name": "Мат плата",
-                    "price": 2999,
-                    "quantity": 1,
-                    "min_quantity": 3,
-                    "unit": "шт",
-                    "isNew": true
+        const CATALOG = {
+            // ========== ЭЛЕКТРОНИКА ==========
+            "electronics": {
+                name: "📱 Электроника",
+                icon: "📱",
+                subcategories: {
+                    "laptops": {
+                        name: "💻 Ноутбуки",
+                        icon: "💻",
+                        description: "Ноутбуки для работы и игр",
+                        products: [
+                            { id: 1, name: "Ноутбук Lenovo ThinkPad E15", code: "NB001", price: 45990, stock: 25, desc: "Intel i5/8GB/256GB SSD" },
+                            { id: 2, name: "Ноутбук HP Pavilion 15", code: "NB002", price: 52990, stock: 18, desc: "Ryzen 5/16GB/512GB SSD" },
+                            { id: 3, name: "Ноутбук Acer Aspire 7", code: "NB003", price: 38990, stock: 22, desc: "Intel i5/8GB/512GB SSD" },
+                            { id: 4, name: "Ноутбук Dell XPS 13", code: "NB004", price: 89990, stock: 8, desc: "Intel i7/16GB/1TB SSD" },
+                            { id: 5, name: "Ноутбук ASUS ROG Zephyrus", code: "NB005", price: 129990, stock: 5, desc: "Ryzen 9/32GB/1TB SSD/RTX 4060" },
+                            { id: 6, name: "Ноутбук MSI Katana 15", code: "NB006", price: 84990, stock: 12, desc: "Intel i7/16GB/512GB SSD/RTX 3050" },
+                            { id: 7, name: "Ноутбук Honor MagicBook X14", code: "NB007", price: 49990, stock: 20, desc: "Intel i5/8GB/512GB SSD" },
+                            { id: 8, name: "Ноутбук MacBook Air 13", code: "NB008", price: 99990, stock: 10, desc: "M1/8GB/256GB" },
+                            { id: 9, name: "Ноутбук MacBook Pro 14", code: "NB009", price: 159990, stock: 6, desc: "M2 Pro/16GB/512GB" },
+                            { id: 10, name: "Ноутбук Xiaomi RedmiBook 15", code: "NB010", price: 42990, stock: 15, desc: "Intel i5/8GB/256GB SSD" },
+                            { id: 11, name: "Ноутбук Huawei MateBook D14", code: "NB011", price: 54990, stock: 14, desc: "Ryzen 5/16GB/512GB" },
+                            { id: 12, name: "Ноутбук Samsung Galaxy Book2", code: "NB012", price: 67990, stock: 9, desc: "Intel i7/16GB/512GB" },
+                            { id: 13, name: "Ноутбук Prestigio SmartBook", code: "NB013", price: 28990, stock: 30, desc: "Intel Celeron/4GB/128GB" },
+                            { id: 14, name: "Ноутбук Digma Pro", code: "NB014", price: 24990, stock: 25, desc: "Intel Pentium/8GB/256GB" },
+                            { id: 15, name: "Ноутбук IRU Business", code: "NB015", price: 31990, stock: 20, desc: "Intel i3/8GB/256GB" },
+                            { id: 16, name: "Ноутбук Lenovo IdeaPad 3", code: "NB016", price: 35990, stock: 28, desc: "Ryzen 3/8GB/256GB" },
+                            { id: 17, name: "Ноутбук HP Envy x360", code: "NB017", price: 72990, stock: 7, desc: "Ryzen 7/16GB/1TB/сенсорный" },
+                            { id: 18, name: "Ноутбук ASUS TUF Gaming", code: "NB018", price: 65990, stock: 11, desc: "Intel i5/16GB/512GB/RTX 2050" },
+                            { id: 19, name: "Ноутбук Acer Swift 3", code: "NB019", price: 58990, stock: 13, desc: "Intel i7/16GB/512GB" },
+                            { id: 20, name: "Ноутбук MSI Modern 14", code: "NB020", price: 44990, stock: 16, desc: "Intel i5/8GB/512GB" },
+                            { id: 21, name: "Ноутбук Dell Inspiron 15", code: "NB021", price: 49990, stock: 17, desc: "Intel i5/8GB/256GB" }
+                        ]
+                    },
+                    "laptop_parts": {
+                        name: "🔧 Запчасти для ноутбуков",
+                        icon: "🔧",
+                        description: "Матрицы, клавиатуры, батареи",
+                        products: [
+                            { id: 30, name: "Матрица 15.6 IPS Full HD", code: "MTX001", price: 5500, stock: 20, desc: "30-pin, матовая" },
+                            { id: 31, name: "Матрица 14.0 IPS", code: "MTX002", price: 4800, stock: 18, desc: "40-pin, глянец" },
+                            { id: 32, name: "Матрица 17.3 Full HD", code: "MTX003", price: 7200, stock: 12, desc: "144Hz для игр" },
+                            { id: 33, name: "Матрица 13.3 IPS", code: "MTX004", price: 4200, stock: 15, desc: "для ультрабуков" },
+                            { id: 34, name: "Клавиатура для Lenovo", code: "KBD001", price: 1200, stock: 30, desc: "русская раскладка" },
+                            { id: 35, name: "Клавиатура для HP", code: "KBD002", price: 1350, stock: 25, desc: "с подсветкой" },
+                            { id: 36, name: "Клавиатура для Dell", code: "KBD003", price: 1400, stock: 20, desc: "оригинал" },
+                            { id: 37, name: "Клавиатура для ASUS", code: "KBD004", price: 1250, stock: 28, desc: "мембранная" },
+                            { id: 38, name: "Клавиатура для Acer", code: "KBD005", price: 1100, stock: 22, desc: "с тачпадом" },
+                            { id: 39, name: "Батарея для Lenovo", code: "BAT001", price: 2500, stock: 15, desc: "3-ячейки" },
+                            { id: 40, name: "Батарея для HP", code: "BAT002", price: 2800, stock: 12, desc: "4-ячейки" },
+                            { id: 41, name: "Батарея для Dell", code: "BAT003", price: 2600, stock: 14, desc: "аналог" },
+                            { id: 42, name: "Батарея для ASUS", code: "BAT004", price: 2700, stock: 13, desc: "оригинал" },
+                            { id: 43, name: "Батарея для Acer", code: "BAT005", price: 2400, stock: 16, desc: "Li-Ion" },
+                            { id: 44, name: "Батарея для MacBook", code: "BAT006", price: 4500, stock: 8, desc: "оригинал" },
+                            { id: 45, name: "Кулер для ноутбука", code: "CLR001", price: 800, stock: 40, desc: "универсальный" },
+                            { id: 46, name: "Кулер для Lenovo", code: "CLR002", price: 950, stock: 25, desc: "оригинал" },
+                            { id: 47, name: "Термопаста Arctic MX-4", code: "THM001", price: 350, stock: 50, desc: "4г" }
+                        ]
+                    },
+                    "computers": {
+                        name: "🖥️ Компьютеры",
+                        icon: "🖥️",
+                        description: "Системные блоки, моноблоки",
+                        products: [
+                            { id: 50, name: "Системный блок Office Pro", code: "PC001", price: 25990, stock: 25, desc: "i3/8GB/256SSD" },
+                            { id: 51, name: "Системный блок Home", code: "PC002", price: 32990, stock: 20, desc: "i5/16GB/512SSD" },
+                            { id: 52, name: "Системный блок Gaming", code: "PC003", price: 65990, stock: 10, desc: "Ryzen5/16GB/1TB/RTX3060" },
+                            { id: 53, name: "Системный блок Ultra Gaming", code: "PC004", price: 129990, stock: 5, desc: "i7/32GB/2TB/RTX4070" },
+                            { id: 54, name: "Моноблок HP AiO", code: "PC005", price: 54990, stock: 12, desc: "23.8/ i5/8GB/256SSD" },
+                            { id: 55, name: "Моноблок Lenovo", code: "PC006", price: 47990, stock: 15, desc: "21.5/ i3/8GB/256SSD" },
+                            { id: 56, name: "Моноблок Apple iMac 24", code: "PC007", price: 149990, stock: 4, desc: "M1/8GB/256GB" },
+                            { id: 57, name: "Моноблок Asus", code: "PC008", price: 58990, stock: 8, desc: "23.8/ Ryzen5/16GB/512GB" },
+                            { id: 58, name: "Мини-ПК Intel NUC", code: "PC009", price: 28990, stock: 18, desc: "i3/8GB/256SSD" },
+                            { id: 59, name: "Мини-ПК Beelink", code: "PC010", price: 22990, stock: 22, desc: "N100/16GB/512GB" }
+                        ]
+                    },
+                    "monitors": {
+                        name: "🖥️ Мониторы",
+                        icon: "🖥️",
+                        description: "Мониторы для любых задач",
+                        products: [
+                            { id: 60, name: "Монитор 24 IPS 75Hz", code: "MON001", price: 11990, stock: 30, desc: "Full HD, HDMI, VGA" },
+                            { id: 61, name: "Монитор 27 4K UHD", code: "MON002", price: 27990, stock: 15, desc: "IPS, HDR, USB-C" },
+                            { id: 62, name: "Монитор 32 2K", code: "MON003", price: 24990, stock: 12, desc: "165Hz, 1ms, для игр" },
+                            { id: 63, name: "Монитор 24 144Hz", code: "MON004", price: 17990, stock: 18, desc: "VA, для киберспорта" },
+                            { id: 64, name: "Монитор 27 165Hz", code: "MON005", price: 22990, stock: 14, desc: "Fast IPS, HDR400" },
+                            { id: 65, name: "Монитор 34 ультраширокий", code: "MON006", price: 39990, stock: 6, desc: "3440x1440, 144Hz" },
+                            { id: 66, name: "Монитор 22 LED", code: "MON007", price: 7990, stock: 35, desc: "бюджетный для офиса" },
+                            { id: 67, name: "Монитор 24 ProArt", code: "MON008", price: 34990, stock: 5, desc: "для дизайнеров" },
+                            { id: 68, name: "Монитор 27 Apple Studio", code: "MON009", price: 159990, stock: 2, desc: "5K, для Mac" },
+                            { id: 69, name: "Монитор 49 суперширокий", code: "MON010", price: 69990, stock: 3, desc: "5120x1440, 240Hz" }
+                        ]
+                    },
+                    "printers": {
+                        name: "🖨️ Принтеры",
+                        icon: "🖨️",
+                        description: "Принтеры и МФУ",
+                        products: [
+                            { id: 70, name: "Принтер HP LaserJet", code: "PRN001", price: 14990, stock: 18, desc: "A4, ч/б" },
+                            { id: 71, name: "МФУ Canon Pixma", code: "PRN002", price: 11990, stock: 22, desc: "струйный, цветной" },
+                            { id: 72, name: "Принтер Epson EcoTank", code: "PRN003", price: 24990, stock: 10, desc: "с СНПЧ, A4" },
+                            { id: 73, name: "МФУ Brother", code: "PRN004", price: 18990, stock: 15, desc: "лазерный, ч/б" },
+                            { id: 74, name: "Принтер Xerox", code: "PRN005", price: 12990, stock: 12, desc: "лазерный" },
+                            { id: 75, name: "Фотопринтер Canon", code: "PRN006", price: 8990, stock: 20, desc: "6 цветов, A4" },
+                            { id: 76, name: "МФУ Kyocera", code: "PRN007", price: 22990, stock: 8, desc: "лазерный, А3" },
+                            { id: 77, name: "Принтер Pantum", code: "PRN008", price: 8490, stock: 25, desc: "бюджетный, ч/б" }
+                        ]
+                    },
+                    "components": {
+                        name: "🔧 Комплектующие ПК",
+                        icon: "🔧",
+                        description: "Процессоры, видеокарты, память",
+                        products: [
+                            { id: 80, name: "Видеокарта RTX 3060 12GB", code: "GPU001", price: 34990, stock: 8, desc: "MSI, LHR" },
+                            { id: 81, name: "Видеокарта RTX 4060 Ti", code: "GPU002", price: 49990, stock: 5, desc: "8GB, Gigabyte" },
+                            { id: 82, name: "Видеокарта RX 6700 XT", code: "GPU003", price: 39990, stock: 6, desc: "12GB, Sapphire" },
+                            { id: 83, name: "Процессор Intel i5-13400", code: "CPU001", price: 22990, stock: 12, desc: "10 ядер" },
+                            { id: 84, name: "Процессор Intel i7-13700", code: "CPU002", price: 38990, stock: 8, desc: "16 ядер" },
+                            { id: 85, name: "Процессор AMD Ryzen 5 7600", code: "CPU003", price: 19990, stock: 10, desc: "AM5" },
+                            { id: 86, name: "Процессор AMD Ryzen 7 7800X3D", code: "CPU004", price: 42990, stock: 5, desc: "для игр" },
+                            { id: 87, name: "ОЗУ 16GB DDR4 3200", code: "RAM001", price: 3500, stock: 45, desc: "Kingston" },
+                            { id: 88, name: "ОЗУ 32GB DDR5 5200", code: "RAM002", price: 8500, stock: 25, desc: "Corsair" },
+                            { id: 89, name: "SSD 500GB M.2", code: "SSD001", price: 3200, stock: 40, desc: "Samsung 980" },
+                            { id: 90, name: "SSD 1TB M.2", code: "SSD002", price: 5500, stock: 35, desc: "WD Black" },
+                            { id: 91, name: "SSD 2TB M.2", code: "SSD003", price: 10500, stock: 18, desc: "Kingston" },
+                            { id: 92, name: "HDD 1TB 7200", code: "HDD001", price: 3900, stock: 30, desc: "Seagate" },
+                            { id: 93, name: "HDD 2TB", code: "HDD002", price: 5900, stock: 25, desc: "Toshiba" }
+                        ]
+                    }
                 }
-            ]
+            },
+            
+            // ========== ТЕЛЕФОНЫ И ГАДЖЕТЫ ==========
+            "phones": {
+                name: "📱 Телефоны и гаджеты",
+                icon: "📱",
+                subcategories: {
+                    "smartphones": {
+                        name: "📱 Смартфоны",
+                        icon: "📱",
+                        description: "Смартфоны всех брендов",
+                        products: [
+                            { id: 100, name: "iPhone 15 Pro 128GB", code: "PH001", price: 89990, stock: 20, desc: "титан" },
+                            { id: 101, name: "iPhone 15 Pro Max 256GB", code: "PH002", price: 109990, stock: 12, desc: "5x зум" },
+                            { id: 102, name: "iPhone 15 128GB", code: "PH003", price: 69990, stock: 25, desc: "динамический остров" },
+                            { id: 103, name: "Samsung Galaxy S23 Ultra", code: "PH004", price: 88990, stock: 15, desc: "200MP" },
+                            { id: 104, name: "Samsung Galaxy S23+", code: "PH005", price: 69990, stock: 18, desc: "6.6''" },
+                            { id: 105, name: "Samsung Galaxy A54", code: "PH006", price: 29990, stock: 30, desc: "бюджетный" },
+                            { id: 106, name: "Xiaomi 13 Pro", code: "PH007", price: 64990, stock: 14, desc: "Leica" },
+                            { id: 107, name: "Xiaomi 13T", code: "PH008", price: 44990, stock: 20, desc: "144Hz" },
+                            { id: 108, name: "Xiaomi Redmi Note 12", code: "PH009", price: 18990, stock: 35, desc: "лучший бюджетник" },
+                            { id: 109, name: "Google Pixel 7 Pro", code: "PH010", price: 59990, stock: 10, desc: "чистый Android" },
+                            { id: 110, name: "Google Pixel 7", code: "PH011", price: 44990, stock: 12, desc: "камера топ" },
+                            { id: 111, name: "OnePlus 11", code: "PH012", price: 64990, stock: 8, desc: "Snapdragon 8 Gen 2" },
+                            { id: 112, name: "Realme GT3", code: "PH013", price: 54990, stock: 10, desc: "240W зарядка" },
+                            { id: 113, name: "Nothing Phone (2)", code: "PH014", price: 49990, stock: 15, desc: "Glyph интерфейс" },
+                            { id: 114, name: "Honor 90", code: "PH015", price: 39990, stock: 18, desc: "200MP" }
+                        ]
+                    },
+                    "accessories": {
+                        name: "🎧 Аксессуары",
+                        icon: "🎧",
+                        description: "Чехлы, защитные стекла",
+                        products: [
+                            { id: 120, name: "Чехол для iPhone силиконовый", code: "ACC001", price: 590, stock: 50, desc: "оригинал" },
+                            { id: 121, name: "Чехол для iPhone кожаный", code: "ACC002", price: 990, stock: 35, desc: "премиум" },
+                            { id: 122, name: "Чехол для Samsung", code: "ACC003", price: 490, stock: 45, desc: "прозрачный" },
+                            { id: 123, name: "Чехол для Xiaomi", code: "ACC004", price: 390, stock: 55, desc: "силиконовый" },
+                            { id: 124, name: "Защитное стекло 3D", code: "ACC005", price: 390, stock: 100, desc: "9H твердость" },
+                            { id: 125, name: "Защитная пленка жидкое стекло", code: "ACC006", price: 590, stock: 60, desc: "нано покрытие" },
+                            { id: 126, name: "Наушники TWS Xiaomi", code: "ACC007", price: 1490, stock: 35, desc: "20 часов" },
+                            { id: 127, name: "Наушники TWS Samsung", code: "ACC008", price: 3990, stock: 25, desc: "ANC шумоподавление" },
+                            { id: 128, name: "Наушники AirPods Pro 2", code: "ACC009", price: 19990, stock: 10, desc: "USB-C" },
+                            { id: 129, name: "Повербанк 10000mAh", code: "ACC010", price: 990, stock: 40, desc: "быстрая зарядка" },
+                            { id: 130, name: "Беспроводная зарядка 15W", code: "ACC011", price: 1290, stock: 30, desc: "MagSafe совместима" },
+                            { id: 131, name: "Автомобильное крепление", code: "ACC012", price: 490, stock: 45, desc: "магнитное" }
+                        ]
+                    }
+                }
+            },
+            
+            // ========== БЫТОВАЯ ТЕХНИКА ==========
+            "appliances": {
+                name: "🏠 Бытовая техника",
+                icon: "🏠",
+                subcategories: {
+                    "refrigerators": {
+                        name: "❄️ Холодильники",
+                        icon: "❄️",
+                        description: "Холодильники и морозильники",
+                        products: [
+                            { id: 140, name: "Холодильник LG 2-х камерный", code: "FRG001", price: 45990, stock: 12, desc: "No Frost" },
+                            { id: 141, name: "Холодильник Samsung", code: "FRG002", price: 52990, stock: 8, desc: "SpaceMax" },
+                            { id: 142, name: "Холодильник Bosch", code: "FRG003", price: 59990, stock: 6, desc: "FreshSense" },
+                            { id: 143, name: "Холодильник Haier", code: "FRG004", price: 38990, stock: 15, desc: "инвертор" },
+                            { id: 144, name: "Холодильник Indesit", code: "FRG005", price: 29990, stock: 20, desc: "бюджетный" },
+                            { id: 145, name: "Холодильник Atlant", code: "FRG006", price: 24990, stock: 25, desc: "надежный" },
+                            { id: 146, name: "Морозильник Liebherr", code: "FRG007", price: 42990, stock: 10, desc: "вертикальный" },
+                            { id: 147, name: "Морозильник Bosch", code: "FRG008", price: 35990, stock: 12, desc: "4 ящика" }
+                        ]
+                    },
+                    "washing_machines": {
+                        name: "🧺 Стиральные машины",
+                        icon: "🧺",
+                        description: "Стиральные машины",
+                        products: [
+                            { id: 150, name: "Стиралка LG 8кг", code: "WAS001", price: 35990, stock: 15, desc: "инвертор, пар" },
+                            { id: 151, name: "Стиралка Samsung 9кг", code: "WAS002", price: 39990, stock: 12, desc: "Eco Bubble" },
+                            { id: 152, name: "Стиралка Bosch 7кг", code: "WAS003", price: 42990, stock: 10, desc: "VarioPerfect" },
+                            { id: 153, name: "Стиралка Indesit 6кг", code: "WAS004", price: 22990, stock: 25, desc: "бюджетная" },
+                            { id: 154, name: "Стиралка Haier 10кг", code: "WAS005", price: 48990, stock: 8, desc: "с сушкой" },
+                            { id: 155, name: "Стиралка Whirlpool", code: "WAS006", price: 34990, stock: 14, desc: "6th Sense" }
+                        ]
+                    }
+                }
+            }
         };
         
-        // ============================================================
-        // ⭐⭐⭐ ФОРМУЛЯР ДЛЯ КОПИРОВАНИЯ НОВОГО ТОВАРА ⭐⭐⭐
-        // ============================================================
-        // 
-        // Скопируй этот шаблон и вставь в массив products:
-        // 
-        // {
-        //     "id": 7,
-        //     "code": "4601234567896",
-        //     "name": "Название товара",
-        //     "price": 1000,
-        //     "quantity": 10,
-        //     "min_quantity": 3,
-        //     "unit": "шт",
-        //     "isNew": true
-        // },
-        // 
-        // ============================================================
+        let currentCategory = null;
+        let currentSubcategory = null;
         
-        let currentProduct = null;
-        
-        // Функция для определения статуса запасов
-        function getStockStatus(quantity, minQuantity) {
-            if (quantity <= 0) {
-                return { class: 'stock-low', text: '❌ Нет в наличии', progressWidth: 0 };
-            } else if (quantity <= minQuantity) {
-                const percent = (quantity / minQuantity) * 100;
-                return { class: 'stock-low', text: `⚠️ Осталось ${quantity} шт.`, progressWidth: percent };
-            } else {
-                let percent = Math.min((quantity / (minQuantity * 3)) * 100, 100);
-                return { class: 'stock-high', text: `✅ В наличии (${quantity} шт.)`, progressWidth: percent };
-            }
+        function render() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            if (searchTerm) { searchProducts(searchTerm); return; }
+            if (currentSubcategory) { renderProducts(); }
+            else if (currentCategory) { renderSubcategories(); }
+            else { renderCategories(); }
+            renderBreadcrumb();
         }
         
-        // Загрузка товаров
-        function loadProducts(searchTerm = '') {
-            const grid = document.getElementById('productsGrid');
-            grid.innerHTML = '<div class="loading">🔄 Загрузка товаров...</div>';
-            
-            setTimeout(() => {
-                let products = PRODUCTS_DATA.products;
-                
-                if (searchTerm) {
-                    const search = searchTerm.toLowerCase();
-                    products = products.filter(p => 
-                        p.name.toLowerCase().includes(search) || 
-                        p.code.includes(search) ||
-                        String(p.price).includes(search)
-                    );
-                }
-                
-                if (products.length === 0) {
-                    grid.innerHTML = '<div class="empty">😔 Товары не найдены</div>';
-                    return;
-                }
-                
-                grid.innerHTML = products.map(product => {
-                    const status = getStockStatus(product.quantity, product.min_quantity);
-                    const priceFormatted = product.price.toLocaleString();
-                    
-                    let emoji = "📦";
-                    if (product.name.includes("Смартфон")) emoji = "📱";
-                    else if (product.name.includes("Наушники")) emoji = "🎧";
-                    else if (product.name.includes("Зарядное")) emoji = "🔋";
-                    else if (product.name.includes("Чехол")) emoji = "📱";
-                    else if (product.name.includes("Стекло")) emoji = "🔍";
-                    else if (product.name.includes("Колонка")) emoji = "🔊";
-                    
-                    return `
-                        <div class="product-card">
-                            ${product.isNew ? '<div class="product-badge badge-new">✨ NEW</div>' : ''}
-                            <div class="product-image">
-                                ${emoji}
-                            </div>
-                            <div class="product-info">
-                                <div class="product-name">${escapeHtml(product.name)}</div>
-                                <div class="product-code">🔖 Код: ${product.code}</div>
-                                <div class="product-price">${priceFormatted} ₽ <small>/ ${product.unit}</small></div>
-                                <div class="stock-info">
-                                    <span class="stock-badge ${status.class}">${status.text}</span>
-                                    <div class="progress-bar">
-                                        <div class="progress-fill" style="width: ${status.progressWidth}%"></div>
-                                    </div>
-                                </div>
-                                <button class="order-btn" onclick="openOrderModal(${product.id})" 
-                                    ${product.quantity <= 0 ? 'disabled' : ''}>
-                                    ${product.quantity > 0 ? '🛒 Заказать' : '📝 Нет в наличии'}
-                                </button>
-                            </div>
-                        </div>
-                    `;
-                }).join('');
-            }, 200);
+        function renderCategories() {
+            document.getElementById('categoriesNav').innerHTML = Object.keys(CATALOG).map(key => 
+                `<button class="category-btn" onclick="selectCategory('${key}')">${CATALOG[key].icon} ${CATALOG[key].name}</button>`
+            ).join('');
+            document.getElementById('subcategoriesGrid').innerHTML = Object.keys(CATALOG).map(key => `
+                <div class="subcategory-card" onclick="selectCategory('${key}')">
+                    <div class="subcategory-icon">${CATALOG[key].icon}</div>
+                    <div class="subcategory-name">${CATALOG[key].name}</div>
+                    <div class="subcategory-count">${Object.keys(CATALOG[key].subcategories).length} подкатегорий</div>
+                </div>
+            `).join('');
+            document.getElementById('productsGrid').innerHTML = '';
         }
         
-        function escapeHtml(text) {
-            const div = document.createElement('div');
-            div.textContent = text;
-            return div.innerHTML;
-        }
+        function selectCategory(key) { currentCategory = key; currentSubcategory = null; render(); }
         
-        function openOrderModal(productId) {
-            const product = PRODUCTS_DATA.products.find(p => p.id === productId);
-            if (!product) return;
-            
-            if (product.quantity <= 0) {
-                const userEmail = prompt('Товара нет в наличии.\nОставьте email, и мы уведомим вас:\n\nEmail:');
-                if (userEmail && userEmail.includes('@')) {
-                    showToast(`✉️ Спасибо! Уведомим на ${userEmail}`);
-                }
-                return;
-            }
-            
-            currentProduct = product;
-            
-            document.getElementById('selectedProductInfo').innerHTML = `
-                <div style="font-weight:bold; font-size:18px;">${escapeHtml(product.name)}</div>
-                <div>💰 Цена: ${product.price.toLocaleString()} ₽ / ${product.unit}</div>
-                <div>📦 Доступно: ${product.quantity} шт.</div>
-                <div>🔖 Код: ${product.code}</div>
+        function renderSubcategories() {
+            const cat = CATALOG[currentCategory];
+            document.getElementById('categoriesNav').innerHTML = `
+                <button class="category-btn" onclick="goBack()">← Назад</button>
+                ${Object.keys(CATALOG).map(key => `<button class="category-btn" onclick="selectCategory('${key}')">${CATALOG[key].icon} ${CATALOG[key].name}</button>`).join('')}
             `;
-            
-            document.getElementById('orderProduct').value = `${product.name} (${product.code})`;
-            document.getElementById('orderSubject').value = `Заказ: ${product.name}`;
-            document.getElementById('orderQty').value = 1;
-            document.getElementById('orderQty').max = product.quantity;
-            
-            const savedEmail = localStorage.getItem('userEmail');
-            if (savedEmail) {
-                document.getElementById('orderEmail').value = savedEmail;
+            document.getElementById('subcategoriesGrid').innerHTML = Object.keys(cat.subcategories).map(key => `
+                <div class="subcategory-card" onclick="selectSubcategory('${key}')">
+                    <div class="subcategory-icon">${cat.subcategories[key].icon}</div>
+                    <div class="subcategory-name">${cat.subcategories[key].name}</div>
+                    <div class="subcategory-count">${cat.subcategories[key].products.length} товаров</div>
+                    <div style="font-size:12px; color:#888;">${cat.subcategories[key].description}</div>
+                </div>
+            `).join('');
+            document.getElementById('productsGrid').innerHTML = '';
+        }
+        
+        function selectSubcategory(key) { currentSubcategory = key; render(); }
+        
+        function renderProducts() {
+            const cat = CATALOG[currentCategory];
+            const sub = cat.subcategories[currentSubcategory];
+            document.getElementById('categoriesNav').innerHTML = `
+                <button class="category-btn" onclick="goBackToSub()">← Назад</button>
+                ${Object.keys(CATALOG).map(key => `<button class="category-btn" onclick="selectCategory('${key}')">${CATALOG[key].icon} ${CATALOG[key].name}</button>`).join('')}
+            `;
+            document.getElementById('subcategoriesGrid').innerHTML = '';
+            document.getElementById('productsGrid').innerHTML = sub.products.map(p => {
+                const stockClass = p.stock > 10 ? 'stock-high' : (p.stock > 0 ? 'stock-low' : 'stock-out');
+                const stockText = p.stock > 10 ? `✅ В наличии (${p.stock} шт.)` : (p.stock > 0 ? `⚠️ Осталось ${p.stock} шт.` : '❌ Нет');
+                return `
+                    <div class="product-card">
+                        <div class="product-image">${sub.icon}</div>
+                        <div class="product-info">
+                            <div class="product-name">${p.name}</div>
+                            <div class="product-code">🔖 ${p.code}</div>
+                            <div class="product-price">${p.price.toLocaleString()} ₽</div>
+                            <div class="product-stock ${stockClass}">${stockText}</div>
+                            <button class="order-btn" onclick='openOrderModal(${JSON.stringify(p).replace(/'/g, "&#39;")})' ${p.stock <= 0 ? 'disabled' : ''}>🛒 Заказать</button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+        
+        function searchProducts(term) {
+            const results = [];
+            for (const [catKey, cat] of Object.entries(CATALOG)) {
+                for (const [subKey, sub] of Object.entries(cat.subcategories)) {
+                    for (const p of sub.products) {
+                        if (p.name.toLowerCase().includes(term) || p.code.toLowerCase().includes(term) || String(p.price).includes(term)) {
+                            results.push({...p, category: cat.name, subcategory: sub.name});
+                        }
+                    }
+                }
             }
-            
+            document.getElementById('categoriesNav').innerHTML = `<button class="category-btn" onclick="clearSearch()">← Очистить поиск</button>`;
+            document.getElementById('subcategoriesGrid').innerHTML = '';
+            if (results.length === 0) {
+                document.getElementById('productsGrid').innerHTML = '<div style="text-align:center; padding:60px; background:white; border-radius:20px;">😔 Товары не найдены</div>';
+            } else {
+                document.getElementById('productsGrid').innerHTML = results.map(p => `
+                    <div class="product-card">
+                        <div class="product-image">📦</div>
+                        <div class="product-info">
+                            <div class="product-name">${p.name}</div>
+                            <div class="product-price">${p.price.toLocaleString()} ₽</div>
+                            <div style="font-size:12px; color:#888;">${p.category} / ${p.subcategory}</div>
+                            <button class="order-btn" onclick='openOrderModal(${JSON.stringify(p).replace(/'/g, "&#39;")})'>🛒 Заказать</button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+        
+        function clearSearch() { document.getElementById('searchInput').value = ''; currentCategory = null; currentSubcategory = null; render(); }
+        function goBack() { currentCategory = null; currentSubcategory = null; render(); }
+        function goBackToSub() { currentSubcategory = null; render(); }
+        
+        function renderBreadcrumb() {
+            const bc = document.getElementById('breadcrumb');
+            if (currentSubcategory && currentCategory) {
+                bc.innerHTML = `🏠 <span onclick="clearSearch()">Главная</span> → <span onclick="selectCategory('${currentCategory}')">${CATALOG[currentCategory].name}</span> → ${CATALOG[currentCategory].subcategories[currentSubcategory].name}`;
+            } else if (currentCategory) {
+                bc.innerHTML = `🏠 <span onclick="clearSearch()">Главная</span> → ${CATALOG[currentCategory].name}`;
+            } else { bc.innerHTML = `🏠 Главная`; }
+        }
+        
+        let currentProductForOrder = null;
+        function openOrderModal(p) {
+            if (p.stock <= 0) { showToast('❌ Товара нет в наличии'); return; }
+            currentProductForOrder = p;
+            document.getElementById('selectedProductInfo').innerHTML = `<div style="font-weight:bold;">${p.name}</div><div>💰 ${p.price.toLocaleString()} ₽</div><div>📦 В наличии: ${p.stock} шт.</div>`;
+            document.getElementById('orderProduct').value = `${p.name} (${p.code})`;
+            document.getElementById('orderQty').value = 1;
+            document.getElementById('orderQty').max = p.stock;
             document.getElementById('orderModal').style.display = 'flex';
         }
         
-        function closeModal() {
-            document.getElementById('orderModal').style.display = 'none';
-            document.getElementById('orderForm').reset();
-        }
+        function closeModal() { document.getElementById('orderModal').style.display = 'none'; }
+        function showToast(msg) { const t = document.createElement('div'); t.className = 'toast'; t.textContent = msg; document.body.appendChild(t); setTimeout(() => t.remove(), 3000); }
         
-        function showToast(message) {
-            const toast = document.createElement('div');
-            toast.className = 'toast';
-            toast.textContent = message;
-            document.body.appendChild(toast);
-            setTimeout(() => toast.remove(), 3000);
-        }
+        document.getElementById('orderForm').addEventListener('submit', function(e) { showToast('✉️ Заказ отправлен!'); setTimeout(() => closeModal(), 1500); });
+        document.getElementById('searchInput').addEventListener('input', render);
         
-        document.getElementById('orderForm').addEventListener('submit', function(e) {
-            const email = document.getElementById('orderEmail').value;
-            if (email) localStorage.setItem('userEmail', email);
-            showToast('✉️ Заказ отправлен! Мы свяжемся с вами.');
-            setTimeout(() => closeModal(), 1500);
-        });
-        
-        let searchTimeout;
-        document.getElementById('searchInput').addEventListener('input', (e) => {
-            clearTimeout(searchTimeout);
-            searchTimeout = setTimeout(() => loadProducts(e.target.value), 400);
-        });
-        
-        window.onclick = (event) => {
-            if (event.target === document.getElementById('orderModal')) closeModal();
-        };
-        
-        loadProducts();
-        console.log('✨ Магазин загружен!');
+        render();
     </script>
 </body>
 </html>
