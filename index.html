@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Мой магазин - Заказ товаров</title>
+    <title>✨ МАГАЗИН - Заказ товаров ✨</title>
     <style>
         * {
             margin: 0;
@@ -19,73 +19,140 @@
         }
         
         .container {
-            max-width: 1200px;
+            max-width: 1300px;
             margin: 0 auto;
         }
         
+        /* Шапка */
         .header {
             text-align: center;
             color: white;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
+            animation: fadeIn 1s ease;
         }
         
         .header h1 {
-            font-size: 32px;
+            font-size: 48px;
             margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
         }
         
         .header p {
-            opacity: 0.9;
+            font-size: 18px;
+            opacity: 0.95;
         }
         
-        .search-bar {
-            margin-bottom: 30px;
+        /* Поиск */
+        .search-section {
+            margin-bottom: 40px;
+        }
+        
+        .search-box {
+            max-width: 500px;
+            margin: 0 auto;
+            position: relative;
         }
         
         .search-input {
             width: 100%;
-            max-width: 400px;
-            margin: 0 auto;
-            display: block;
-            padding: 15px 20px;
+            padding: 16px 20px 16px 50px;
             font-size: 16px;
             border: none;
             border-radius: 50px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-            outline: none;
+            background: white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: all 0.3s;
         }
         
+        .search-input:focus {
+            outline: none;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+            transform: scale(1.02);
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 20px;
+        }
+        
+        /* Сетка товаров */
         .products-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 25px;
-            margin-bottom: 40px;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
         }
         
+        /* Карточка товара */
         .product-card {
             background: white;
             border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
         }
         
         .product-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.25);
+        }
+        
+        .product-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            z-index: 10;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .badge-new {
+            background: linear-gradient(135deg, #FF6B6B, #EE5A24);
+            color: white;
+            animation: pulse 1.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
         
         .product-image {
-            height: 160px;
+            height: 200px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 60px;
+            font-size: 70px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .product-image::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+        
+        .product-card:hover .product-image::before {
+            opacity: 1;
         }
         
         .product-info {
-            padding: 20px;
+            padding: 25px;
         }
         
         .product-name {
@@ -96,45 +163,72 @@
         }
         
         .product-code {
-            font-size: 12px;
-            color: #999;
-            margin-bottom: 10px;
+            font-size: 11px;
+            color: #aaa;
+            margin-bottom: 15px;
+            font-family: monospace;
         }
         
         .product-price {
-            font-size: 24px;
+            font-size: 28px;
             font-weight: bold;
-            color: #FF9800;
-            margin: 10px 0;
+            color: #FF6B6B;
+            margin: 15px 0;
         }
         
-        .product-stock {
-            display: inline-block;
-            padding: 4px 12px;
+        .product-price small {
+            font-size: 14px;
+            color: #999;
+            font-weight: normal;
+        }
+        
+        .stock-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .stock-badge {
+            padding: 5px 12px;
             border-radius: 20px;
-            font-size: 12px;
+            font-size: 13px;
             font-weight: bold;
-            margin-bottom: 15px;
         }
         
-        .in-stock {
-            background: #4CAF50;
-            color: white;
+        .stock-high {
+            background: #d4edda;
+            color: #155724;
         }
         
-        .low-stock {
-            background: #FF9800;
-            color: white;
+        .stock-medium {
+            background: #fff3cd;
+            color: #856404;
         }
         
-        .out-of-stock {
-            background: #f44336;
-            color: white;
+        .stock-low {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .progress-bar {
+            flex: 1;
+            height: 6px;
+            background: #e0e0e0;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4CAF50, #8BC34A);
+            border-radius: 3px;
+            transition: width 0.5s;
         }
         
         .order-btn {
             width: 100%;
-            padding: 12px;
+            padding: 14px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border: none;
@@ -142,19 +236,52 @@
             font-size: 16px;
             font-weight: bold;
             cursor: pointer;
-            transition: opacity 0.3s;
+            transition: all 0.3s;
         }
         
-        .order-btn:hover {
-            opacity: 0.9;
+        .order-btn:hover:not(:disabled) {
+            transform: scale(1.02);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
         }
         
-        .order-btn.disabled {
+        .order-btn:disabled {
             background: #ccc;
             cursor: not-allowed;
         }
         
-        /* Модальное окно для заказа */
+        /* Контактная карточка */
+        .contact-card {
+            background: rgba(255,255,255,0.95);
+            border-radius: 25px;
+            padding: 40px;
+            margin: 40px 0;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .contact-card h3 {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 15px;
+        }
+        
+        .contact-email {
+            font-size: 24px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 20px 0;
+        }
+        
+        .contact-email a {
+            text-decoration: none;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        /* Модальное окно */
         .modal {
             display: none;
             position: fixed;
@@ -162,7 +289,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.5);
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(5px);
             justify-content: center;
             align-items: center;
             z-index: 1000;
@@ -170,93 +298,110 @@
         
         .modal-content {
             background: white;
-            padding: 30px;
-            border-radius: 20px;
-            max-width: 500px;
+            padding: 35px;
+            border-radius: 25px;
+            max-width: 550px;
             width: 90%;
             max-height: 85vh;
             overflow-y: auto;
+            animation: slideUp 0.4s ease;
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         
         .modal-content h3 {
-            margin-bottom: 20px;
+            font-size: 28px;
+            margin-bottom: 25px;
             color: #333;
         }
         
         .form-group {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
         
         .form-group label {
             display: block;
-            margin-bottom: 5px;
-            color: #666;
+            margin-bottom: 8px;
+            color: #555;
             font-weight: 500;
         }
         
-        .form-group input, 
+        .form-group input,
         .form-group textarea {
             width: 100%;
-            padding: 12px;
+            padding: 12px 15px;
             border: 2px solid #e0e0e0;
-            border-radius: 10px;
+            border-radius: 12px;
             font-size: 14px;
-            transition: border-color 0.3s;
+            transition: all 0.3s;
         }
         
-        .form-group input:focus, 
+        .form-group input:focus,
         .form-group textarea:focus {
             outline: none;
             border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
         }
         
-        .form-group input:invalid {
-            border-color: #ff4444;
-        }
-        
-        .btn {
+        .btn-submit {
             width: 100%;
-            padding: 12px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 14px;
+            background: linear-gradient(135deg, #4CAF50, #45a049);
             color: white;
             border: none;
-            border-radius: 10px;
+            border-radius: 12px;
             font-size: 16px;
             font-weight: bold;
             cursor: pointer;
             margin-top: 10px;
         }
         
-        .btn-secondary {
-            background: #999;
+        .btn-cancel {
+            width: 100%;
+            padding: 12px;
+            background: #f0f0f0;
+            color: #666;
+            border: none;
+            border-radius: 12px;
+            font-size: 14px;
+            cursor: pointer;
             margin-top: 10px;
         }
         
         .footer {
             text-align: center;
             color: white;
-            padding: 20px;
-            font-size: 14px;
-            opacity: 0.8;
+            padding: 30px;
+            opacity: 0.9;
         }
         
         .toast {
             position: fixed;
-            bottom: 20px;
+            bottom: 30px;
             left: 50%;
             transform: translateX(-50%);
             background: #333;
             color: white;
-            padding: 12px 24px;
-            border-radius: 30px;
+            padding: 15px 30px;
+            border-radius: 50px;
             z-index: 2000;
-            animation: fadeInUp 0.3s ease;
+            animation: slideIn 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
         }
         
-        @keyframes fadeInUp {
+        @keyframes slideIn {
             from {
                 opacity: 0;
-                transform: translateX(-50%) translateY(20px);
+                transform: translateX(-50%) translateY(50px);
             }
             to {
                 opacity: 1;
@@ -266,284 +411,292 @@
         
         .loading {
             text-align: center;
-            padding: 60px;
+            padding: 80px;
             color: white;
-            font-size: 18px;
+            font-size: 20px;
         }
         
         .empty {
             text-align: center;
-            padding: 60px;
+            padding: 80px;
             background: white;
-            border-radius: 20px;
+            border-radius: 25px;
             color: #999;
         }
         
-        .contact-card {
-            background: white;
-            border-radius: 20px;
-            padding: 30px;
-            margin-top: 30px;
-            text-align: center;
-        }
-        
-        .contact-email {
-            font-size: 20px;
-            color: #667eea;
-            margin: 10px 0;
-        }
-        
         @media (max-width: 768px) {
-            .products-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .product-image {
-                height: 120px;
-                font-size: 40px;
-            }
-        }
-        
-        .status-badge {
-            display: inline-block;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-size: 12px;
-            margin-left: 10px;
+            .header h1 { font-size: 32px; }
+            .product-image { height: 150px; font-size: 50px; }
+            .contact-email { font-size: 18px; }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>📦 Мой магазин</h1>
-            <p>Выберите товар и оформите заказ</p>
+            <h1>✨ МАГАЗИН ТОВАРОВ ✨</h1>
+            <p>Лучшие товары по лучшим ценам</p>
         </div>
         
-        <div class="search-bar">
-            <input type="text" id="searchInput" class="search-input" placeholder="🔍 Поиск товаров...">
+        <div class="search-section">
+            <div class="search-box">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="searchInput" class="search-input" placeholder="Поиск товаров...">
+            </div>
         </div>
         
         <div id="productsGrid" class="products-grid">
-            <div class="loading">⏳ Загрузка товаров...</div>
+            <div class="loading">🔄 Загрузка товаров...</div>
         </div>
         
         <div class="contact-card">
-            <h3>📧 Не нашли нужный товар?</h3>
-            <p>Напишите нам на почту, и мы поможем!</p>
+            <h3>📧 Есть вопросы или предложения?</h3>
+            <p>Напишите нам напрямую</p>
             <div class="contact-email">
                 📧 <a href="mailto:zakaz@yourstore.com">zakaz@yourstore.com</a>
             </div>
-            <p style="margin-top: 15px; font-size: 12px; color: #999;">
+            <p style="margin-top: 20px; font-size: 14px; color: #888;">
                 Или заполните форму заказа ниже
             </p>
+        </div>
+        
+        <div class="footer">
+            <p>© 2024 Магазин. Все права защищены.</p>
+            <p style="font-size: 12px;">Сайт создан для удобного заказа товаров</p>
         </div>
     </div>
     
     <!-- Модальное окно заказа -->
     <div id="orderModal" class="modal">
         <div class="modal-content">
-            <h3>📝 Оформление заказа</h3>
-            <div id="selectedProductInfo" style="background:#f0f0f0; padding:15px; border-radius:10px; margin-bottom:20px;"></div>
+            <h3>🛍️ Оформление заказа</h3>
+            <div id="selectedProductInfo" style="background:#f8f9fa; padding:15px; border-radius:15px; margin-bottom:25px;"></div>
             
             <form id="orderForm" method="POST" action="https://formspree.io/f/ВАШ_КЛЮЧ_ФОРМЫ">
                 <div class="form-group">
-                    <label>Ваше имя *</label>
-                    <input type="text" name="name" id="orderName" required>
+                    <label>👤 Ваше имя *</label>
+                    <input type="text" name="name" id="orderName" required placeholder="Иван Иванов">
                 </div>
                 
                 <div class="form-group">
-                    <label>Email * (для подтверждения)</label>
-                    <input type="email" name="email" id="orderEmail" required>
+                    <label>📧 Email *</label>
+                    <input type="email" name="email" id="orderEmail" required placeholder="ivan@example.com">
                 </div>
                 
                 <div class="form-group">
-                    <label>Телефон *</label>
-                    <input type="tel" name="phone" id="orderPhone" required>
+                    <label>📞 Телефон *</label>
+                    <input type="tel" name="phone" id="orderPhone" required placeholder="+7 999 123-45-67">
                 </div>
                 
                 <div class="form-group">
-                    <label>Количество *</label>
+                    <label>🔢 Количество *</label>
                     <input type="number" name="quantity" id="orderQty" min="1" value="1" required>
                 </div>
                 
                 <div class="form-group">
-                    <label>Адрес доставки</label>
-                    <textarea name="address" id="orderAddress" rows="2" placeholder="Город, улица, дом"></textarea>
+                    <label>📍 Адрес доставки</label>
+                    <textarea name="address" id="orderAddress" rows="2" placeholder="Город, улица, дом, квартира"></textarea>
                 </div>
                 
                 <div class="form-group">
-                    <label>Комментарий к заказу</label>
-                    <textarea name="comment" id="orderComment" rows="2" placeholder="Ваши пожелания"></textarea>
+                    <label>💬 Комментарий</label>
+                    <textarea name="comment" id="orderComment" rows="2" placeholder="Ваши пожелания к заказу"></textarea>
                 </div>
                 
                 <!-- Скрытые поля -->
                 <input type="hidden" name="product" id="orderProduct" value="">
                 <input type="hidden" name="_subject" id="orderSubject" value="Новый заказ с сайта">
                 <input type="hidden" name="_replyto" id="orderReplyto">
-                
-                <!-- Защита от спама -->
                 <input type="text" name="_gotcha" style="display:none">
                 
-                <button type="submit" class="btn">📦 Отправить заказ</button>
-                <button type="button" class="btn btn-secondary" onclick="closeModal()">Отмена</button>
+                <button type="submit" class="btn-submit">✅ Оформить заказ</button>
+                <button type="button" class="btn-cancel" onclick="closeModal()">❌ Отмена</button>
             </form>
         </div>
     </div>
     
-    <div class="footer">
-        <p>📧 По всем вопросам: <a href="mailto:zakaz@yourstore.com" style="color:white;">zakaz@yourstore.com</a></p>
-        <p>© 2024 Магазин. Все права защищены.</p>
-    </div>
-    
     <script>
-        // Данные о товарах (можно редактировать прямо здесь)
+        // ============================================================
+        // ⭐⭐⭐ НАСТРОЙКИ ТОВАРОВ - РЕДАКТИРУЙ ЗДЕСЬ ⭐⭐⭐
+        // ============================================================
+        // 
+        // ИНСТРУКЦИЯ ПО ДОБАВЛЕНИЮ НОВЫХ ТОВАРОВ:
+        // 
+        // 1. Скопируй блок в фигурных скобках { ... },
+        // 2. Вставь его в массив products через запятую
+        // 3. Заполни поля:
+        //    - id:        номер товара (последующий)
+        //    - code:      штрихкод (любой уникальный номер)
+        //    - name:      название товара
+        //    - price:     цена в рублях
+        //    - quantity:  количество на складе
+        //    - min_quantity: минимальный остаток (при котором будет предупреждение)
+        //    - unit:      единица измерения (шт, кг, м и т.д.)
+        //    - isNew:     true - появится метка "NEW", false - без метки
+        //
+        // ============================================================
+        
         const PRODUCTS_DATA = {
             "products": [
+                // ↓↓↓ КОПИРУЙ ЭТОТ БЛОК ДЛЯ ДОБАВЛЕНИЯ НОВОГО ТОВАРА ↓↓↓
                 {
                     "id": 1,
                     "code": "4601234567890",
-                    "name": "Смартфон Galaxy S21",
+                    "name": "✨ Смартфон Galaxy S21",
                     "price": 29990,
                     "quantity": 15,
                     "min_quantity": 3,
                     "unit": "шт",
-                    "inStock": true
+                    "isNew": true
                 },
+                // ↑↑↑ КОНЕЦ БЛОКА ТОВАРА ↑↑↑
+                
                 {
                     "id": 2,
                     "code": "4601234567891",
-                    "name": "Наушники Bluetooth",
+                    "name": "🎧 Наушники Bluetooth Pro",
                     "price": 2990,
                     "quantity": 30,
                     "min_quantity": 5,
                     "unit": "шт",
-                    "inStock": true
+                    "isNew": false
                 },
                 {
                     "id": 3,
                     "code": "4601234567892",
-                    "name": "Зарядное устройство",
+                    "name": "🔋 Зарядное устройство 65W",
                     "price": 990,
                     "quantity": 50,
                     "min_quantity": 10,
                     "unit": "шт",
-                    "inStock": true
+                    "isNew": false
                 },
                 {
                     "id": 4,
                     "code": "4601234567893",
-                    "name": "Чехол для телефона",
+                    "name": "📱 Защитный чехол",
                     "price": 590,
                     "quantity": 25,
                     "min_quantity": 5,
                     "unit": "шт",
-                    "inStock": true
+                    "isNew": true
                 },
                 {
                     "id": 5,
                     "code": "4601234567894",
-                    "name": "Защитное стекло",
+                    "name": "🔍 Защитное стекло 3D",
                     "price": 390,
                     "quantity": 0,
                     "min_quantity": 10,
                     "unit": "шт",
-                    "inStock": false
+                    "isNew": false
                 },
                 {
                     "id": 6,
                     "code": "4601234567895",
-                    "name": "Портативная колонка",
+                    "name": "🔊 Портативная колонка",
                     "price": 4990,
                     "quantity": 2,
                     "min_quantity": 3,
                     "unit": "шт",
-                    "inStock": true
+                    "isNew": false
                 }
             ]
         };
         
+        // ============================================================
+        // ⭐⭐⭐ ФОРМУЛЯР ДЛЯ КОПИРОВАНИЯ НОВОГО ТОВАРА ⭐⭐⭐
+        // ============================================================
+        // 
+        // Скопируй этот шаблон и вставь в массив products:
+        // 
+        // {
+        //     "id": 7,
+        //     "code": "4601234567896",
+        //     "name": "Название товара",
+        //     "price": 1000,
+        //     "quantity": 10,
+        //     "min_quantity": 3,
+        //     "unit": "шт",
+        //     "isNew": true
+        // },
+        // 
+        // ============================================================
+        
         let currentProduct = null;
         
-        // Функция для загрузки товаров
+        // Функция для определения статуса запасов
+        function getStockStatus(quantity, minQuantity) {
+            if (quantity <= 0) {
+                return { class: 'stock-low', text: '❌ Нет в наличии', progressWidth: 0 };
+            } else if (quantity <= minQuantity) {
+                const percent = (quantity / minQuantity) * 100;
+                return { class: 'stock-low', text: `⚠️ Осталось ${quantity} шт.`, progressWidth: percent };
+            } else {
+                let percent = Math.min((quantity / (minQuantity * 3)) * 100, 100);
+                return { class: 'stock-high', text: `✅ В наличии (${quantity} шт.)`, progressWidth: percent };
+            }
+        }
+        
+        // Загрузка товаров
         function loadProducts(searchTerm = '') {
             const grid = document.getElementById('productsGrid');
-            
-            // Имитация загрузки
-            grid.innerHTML = '<div class="loading">⏳ Загрузка товаров...</div>';
+            grid.innerHTML = '<div class="loading">🔄 Загрузка товаров...</div>';
             
             setTimeout(() => {
                 let products = PRODUCTS_DATA.products;
                 
-                // Фильтрация по поиску
                 if (searchTerm) {
                     const search = searchTerm.toLowerCase();
                     products = products.filter(p => 
                         p.name.toLowerCase().includes(search) || 
-                        p.code.includes(search)
+                        p.code.includes(search) ||
+                        String(p.price).includes(search)
                     );
                 }
                 
                 if (products.length === 0) {
-                    grid.innerHTML = '<div class="empty">📭 Товары не найдены</div>';
+                    grid.innerHTML = '<div class="empty">😔 Товары не найдены</div>';
                     return;
                 }
                 
                 grid.innerHTML = products.map(product => {
-                    let stockStatus = '';
-                    let stockClass = '';
-                    let stockText = '';
+                    const status = getStockStatus(product.quantity, product.min_quantity);
+                    const priceFormatted = product.price.toLocaleString();
                     
-                    if (product.quantity <= 0) {
-                        stockClass = 'out-of-stock';
-                        stockText = '❌ Нет в наличии';
-                        stockStatus = 'disabled';
-                    } else if (product.quantity <= product.min_quantity) {
-                        stockClass = 'low-stock';
-                        stockText = `⚠️ Осталось ${product.quantity} шт.`;
-                        stockStatus = '';
-                    } else {
-                        stockClass = 'in-stock';
-                        stockText = `✅ В наличии (${product.quantity} шт.)`;
-                        stockStatus = '';
-                    }
+                    let emoji = "📦";
+                    if (product.name.includes("Смартфон")) emoji = "📱";
+                    else if (product.name.includes("Наушники")) emoji = "🎧";
+                    else if (product.name.includes("Зарядное")) emoji = "🔋";
+                    else if (product.name.includes("Чехол")) emoji = "📱";
+                    else if (product.name.includes("Стекло")) emoji = "🔍";
+                    else if (product.name.includes("Колонка")) emoji = "🔊";
                     
                     return `
                         <div class="product-card">
+                            ${product.isNew ? '<div class="product-badge badge-new">✨ NEW</div>' : ''}
                             <div class="product-image">
-                                ${getProductIcon(product.name)}
+                                ${emoji}
                             </div>
                             <div class="product-info">
                                 <div class="product-name">${escapeHtml(product.name)}</div>
-                                <div class="product-code">Штрихкод: ${product.code}</div>
-                                <div class="product-price">${product.price.toLocaleString()} ₽ / ${product.unit}</div>
-                                <div class="product-stock ${stockClass}">${stockText}</div>
-                                <button class="order-btn ${product.quantity <= 0 ? 'disabled' : ''}" 
-                                        onclick="openOrderModal(${product.id})"
-                                        ${product.quantity <= 0 ? 'disabled' : ''}>
-                                    ${product.quantity > 0 ? '🛒 Заказать' : '📝 Уведомить'}
+                                <div class="product-code">🔖 Код: ${product.code}</div>
+                                <div class="product-price">${priceFormatted} ₽ <small>/ ${product.unit}</small></div>
+                                <div class="stock-info">
+                                    <span class="stock-badge ${status.class}">${status.text}</span>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: ${status.progressWidth}%"></div>
+                                    </div>
+                                </div>
+                                <button class="order-btn" onclick="openOrderModal(${product.id})" 
+                                    ${product.quantity <= 0 ? 'disabled' : ''}>
+                                    ${product.quantity > 0 ? '🛒 Заказать' : '📝 Нет в наличии'}
                                 </button>
                             </div>
                         </div>
                     `;
                 }).join('');
-            }, 300);
-        }
-        
-        function getProductIcon(name) {
-            const icons = {
-                'Планшет': '📱',
-                'Наушники': '🎧',
-                'Зарядное': '🔋',
-                'Чехол': '📱',
-                'Стекло': '🔍',
-                'Колонка': '🔊'
-            };
-            
-            for (const [key, icon] of Object.entries(icons)) {
-                if (name.includes(key)) return icon;
-            }
-            return '📦';
+            }, 200);
         }
         
         function escapeHtml(text) {
@@ -557,44 +710,27 @@
             if (!product) return;
             
             if (product.quantity <= 0) {
-                // Если товара нет, предложим уведомление
-                const userEmail = prompt('Товара временно нет в наличии.\nОставьте email, и мы уведомим вас о поступлении:\n\nEmail:');
+                const userEmail = prompt('Товара нет в наличии.\nОставьте email, и мы уведомим вас:\n\nEmail:');
                 if (userEmail && userEmail.includes('@')) {
-                    showToast(`✉️ Спасибо! Уведомим на ${userEmail} о поступлении.`);
-                    
-                    // Здесь можно отправить на почту через Formspree
-                    fetch('https://formspree.io/f/ВАШ_КЛЮЧ_ФОРМЫ', {
-                        method: 'POST',
-                        headers: {'Content-Type': 'application/json'},
-                        body: JSON.stringify({
-                            name: 'Уведомление',
-                            email: userEmail,
-                            product: product.name,
-                            message: 'Хочу получить уведомление о поступлении товара'
-                        })
-                    }).catch(console.error);
+                    showToast(`✉️ Спасибо! Уведомим на ${userEmail}`);
                 }
                 return;
             }
             
             currentProduct = product;
             
-            // Заполняем информацию о товаре
-            const infoDiv = document.getElementById('selectedProductInfo');
-            infoDiv.innerHTML = `
-                <strong>${escapeHtml(product.name)}</strong><br>
-                Цена: ${product.price.toLocaleString()} ₽ / ${product.unit}<br>
-                Доступно: ${product.quantity} шт.<br>
-                Код: ${product.code}
+            document.getElementById('selectedProductInfo').innerHTML = `
+                <div style="font-weight:bold; font-size:18px;">${escapeHtml(product.name)}</div>
+                <div>💰 Цена: ${product.price.toLocaleString()} ₽ / ${product.unit}</div>
+                <div>📦 Доступно: ${product.quantity} шт.</div>
+                <div>🔖 Код: ${product.code}</div>
             `;
             
-            // Заполняем форму
             document.getElementById('orderProduct').value = `${product.name} (${product.code})`;
             document.getElementById('orderSubject').value = `Заказ: ${product.name}`;
             document.getElementById('orderQty').value = 1;
             document.getElementById('orderQty').max = product.quantity;
             
-            // Подставляем email из localStorage если есть
             const savedEmail = localStorage.getItem('userEmail');
             if (savedEmail) {
                 document.getElementById('orderEmail').value = savedEmail;
@@ -616,41 +752,25 @@
             setTimeout(() => toast.remove(), 3000);
         }
         
-        // Сохраняем email при отправке формы
         document.getElementById('orderForm').addEventListener('submit', function(e) {
             const email = document.getElementById('orderEmail').value;
-            if (email) {
-                localStorage.setItem('userEmail', email);
-            }
-            
-            showToast('✉️ Заказ отправлен! Мы свяжемся с вами в ближайшее время.');
-            
-            // Даём время на отправку формы
-            setTimeout(() => {
-                closeModal();
-            }, 1000);
+            if (email) localStorage.setItem('userEmail', email);
+            showToast('✉️ Заказ отправлен! Мы свяжемся с вами.');
+            setTimeout(() => closeModal(), 1500);
         });
         
-        // Поиск с задержкой
         let searchTimeout;
         document.getElementById('searchInput').addEventListener('input', (e) => {
             clearTimeout(searchTimeout);
-            searchTimeout = setTimeout(() => {
-                loadProducts(e.target.value);
-            }, 400);
+            searchTimeout = setTimeout(() => loadProducts(e.target.value), 400);
         });
         
-        // Закрытие модального окна по клику вне его
         window.onclick = (event) => {
-            if (event.target === document.getElementById('orderModal')) {
-                closeModal();
-            }
+            if (event.target === document.getElementById('orderModal')) closeModal();
         };
         
-        // Загрузка товаров при старте
         loadProducts();
-        
-        console.log('Сайт загружен! 📦');
+        console.log('✨ Магазин загружен!');
     </script>
 </body>
 </html>
